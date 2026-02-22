@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crypto Checkout</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+<div class="bg-white w-full max-w-md p-8 rounded-2xl shadow-2xl">
+
+  <h1 class="text-2xl font-bold text-gray-800 mb-1">Complete Payment</h1>
+  <p class="text-gray-500 mb-6">Select a cryptocurrency to continue</p>
+
+  <div class="bg-gray-50 p-4 rounded-xl mb-6">
+    <div class="flex justify-between items-center">
+      <span class="text-gray-600">Free</span>
+      <span class="text-xl font-semibold">$0.5</span>
+    </div>
+  </div>
+
+  <!-- Payment Options -->
+  <div class="space-y-4">
+
+    <!-- SOL -->
+    <button onclick="openSolWidget()" 
+      class="w-full flex items-center justify-between border rounded-xl p-4 hover:bg-gray-50 transition group">
+      <span>Solana (SOL)</span>
+      <span class="text-purple-600">→</span>
+    </button>
+
+    <!-- USDC -->
+    <button onclick="openUsdcWidget()" 
+      class="w-full flex items-center justify-between border rounded-xl p-4 hover:bg-gray-50 transition group">
+      <span>USD Coin (USDC - Solana)</span>
+      <span class="text-blue-600">→</span>
+    </button>
+
+    <!-- BNB -->
+    <button onclick="openBnbWidget()" 
+      class="w-full flex items-center justify-between border rounded-xl p-4 hover:bg-gray-50 transition group">
+      <span>BNB</span>
+      <span class="text-yellow-500">→</span>
+    </button>
+
+  </div>
+
+</div>
+
+<!-- SINGLE MODAL -->
+<div id="paymentModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+
+  <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative p-4 flex flex-col items-center">
+
+    <button onclick="closeModal()" 
+      class="absolute -top-10 right-0 text-white font-bold">
+      ✕ CLOSE
+    </button>
+
+    <div id="iframeContainer" class="w-full flex justify-center rounded-xl overflow-hidden"></div>
+
+  </div>
+</div>
+
+<script>
+function openSolWidget() {
+  const modal = document.getElementById("paymentModal");
+  const container = document.getElementById("iframeContainer");
+  container.innerHTML = `<iframe src="https://nowpayments.io/embeds/payment-widget?iid=4548522175" width="410" height="696" frameborder="0" scrolling="no" style="overflow-y:hidden; max-width:100%;">Can't load widget</iframe>`;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function openUsdcWidget() {
+  const modal = document.getElementById("paymentModal");
+  const container = document.getElementById("iframeContainer");
+  container.innerHTML = `<iframe src="https://nowpayments.io/embeds/payment-widget?iid=4586200999" width="410" height="696" frameborder="0" scrolling="no" style="overflow-y:hidden; max-width:100%;">Can't load widget</iframe>`;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function openBnbWidget() {
+  const modal = document.getElementById("paymentModal");
+  const container = document.getElementById("iframeContainer");
+  container.innerHTML = `<iframe src="https://nowpayments.io/embeds/payment-widget?iid=5559656259" width="410" height="696" frameborder="0" scrolling="no" style="overflow-y:hidden; max-width:100%;">Can't load widget</iframe>`;
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeModal() {
+  const modal = document.getElementById("paymentModal");
+  const container = document.getElementById("iframeContainer");
+  container.innerHTML = "";
+  modal.classList.add("hidden");
+}
+</script>
+
+</body>
+</html>
