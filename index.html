@@ -1,135 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Complete Payment</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<title>Crypto Checkout</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-  <div class="bg-white w-full max-w-3xl p-10 rounded-2xl shadow-lg">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
 
-    <h1 class="text-3xl font-bold text-gray-800 mb-2">
-      Complete Payment
-    </h1>
-    <p class="text-gray-500 mb-8">
-      Choose cryptocurrency & network
-    </p>
+<div class="bg-white w-full max-w-xl p-8 rounded-3xl shadow-2xl">
 
-    <!-- ================= USDT ================= -->
-    <h2 class="text-lg font-semibold text-gray-700 mb-4">USDT</h2>
-    <div class="grid grid-cols-2 gap-4 mb-8">
+  <h1 class="text-3xl font-bold text-gray-800 mb-2">
+    Complete Payment
+  </h1>
+  <p class="text-gray-500 mb-8">
+    Choose cryptocurrency & network
+  </p>
 
-      <button onclick="buyCrypto('usdtsol')" class="crypto-btn">
-        USDT - Solana
+  <!-- ================= USDT ================= -->
+  <div class="mb-10">
+    <h2 class="font-semibold text-gray-700 mb-4">USDT</h2>
+    <div class="space-y-3">
+
+      <button onclick="pay('usdt_sol')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" class="w-8 h-8">
+          <span>USDT - Solana</span>
+        </div>
       </button>
 
-      <button onclick="buyCrypto('usdtbsc')" class="crypto-btn">
-        USDT - BNB Smart Chain
+      <button onclick="pay('usdt_bnb')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" class="w-8 h-8">
+          <span>USDT - BNB Smart Chain</span>
+        </div>
       </button>
 
-      <button onclick="buyCrypto('usdteth')" class="crypto-btn">
-        USDT - Ethereum
+      <button onclick="pay('usdt_eth')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/tether-usdt-logo.png" class="w-8 h-8">
+          <span>USDT - Ethereum</span>
+        </div>
       </button>
+
+     
 
     </div>
-
-    <!-- ================= USDC ================= -->
-    <h2 class="text-lg font-semibold text-gray-700 mb-4">USDC</h2>
-    <div class="grid grid-cols-2 gap-4 mb-8">
-
-      <button onclick="buyCrypto('usdcspl')" class="crypto-btn">
-        USDC - Solana
-      </button>
-
-      <button onclick="buyCrypto('usdcbsc')" class="crypto-btn">
-        USDC - BNB Smart Chain
-      </button>
-
-      <button onclick="buyCrypto('usdceth')" class="crypto-btn">
-        USDC - Ethereum
-      </button>
-
-      <button onclick="buyCrypto('usdcbase')" class="crypto-btn">
-        USDC - Base
-      </button>
-
-    </div>
-
-    <!-- ================= Native Coins ================= -->
-    <h2 class="text-lg font-semibold text-gray-700 mb-4">Native Coins</h2>
-    <div class="grid grid-cols-2 gap-4">
-
-      <button onclick="buyCrypto('sol')" class="crypto-btn">
-        SOL - Solana
-      </button>
-
-      <button onclick="buyCrypto('bnb')" class="crypto-btn">
-        BNB - BNB Mainnet
-      </button>
-
-      <button onclick="buyCrypto('eth')" class="crypto-btn">
-        ETH - Ethereum
-      </button>
-
-      <button onclick="buyCrypto('base')" class="crypto-btn">
-        BASE - Base Mainnet
-      </button>
-
-    </div>
-
   </div>
 
-  <!-- ================= STYLES ================= -->
-  <style>
-    .crypto-btn {
-      background-color: #f3f4f6;
-      padding: 14px;
-      border-radius: 12px;
-      text-align: left;
-      font-weight: 500;
-      transition: 0.2s ease;
-    }
+  <!-- ================= USDC ================= -->
+  <div class="mb-10">
+    <h2 class="font-semibold text-gray-700 mb-4">USDC</h2>
+    <div class="space-y-3">
 
-    .crypto-btn:hover {
-      background-color: #e5e7eb;
-      transform: translateY(-2px);
-    }
-  </style>
+      <button onclick="pay('usdc_sol')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" class="w-8 h-8">
+          <span>USDC - Solana</span>
+        </div>
+      </button>
 
-  <!-- ================= SCRIPT ================= -->
-  <script>
-    async function buyCrypto(cryptoCode) {
+      <button onclick="pay('usdc_bnb')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" class="w-8 h-8">
+          <span>USDC - BNB Smart Chain</span>
+        </div>
+      </button>
 
-      // 🔥 You can change ticketType dynamically if needed
-      const ticketType = "vip";
+      <button onclick="pay('usdc_eth')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" class="w-8 h-8">
+          <span>USDC - Ethereum</span>
+        </div>
+      </button>
 
-      try {
-        const res = await fetch("/api/create-payment", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            ticketType: ticketType,
-            crypto: cryptoCode
-          })
-        });
+      <button onclick="pay('usdc_base')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" class="w-8 h-8">
+          <span>USDC - Base</span>
+        </div>
+      </button>
 
-        const data = await res.json();
+    </div>
+  </div>
 
-        if (data.invoice_url) {
-          window.location.href = data.invoice_url;
-        } else {
-          alert(data.error || "Payment failed");
-        }
+  <!-- ================= NATIVE COINS ================= -->
+  <div>
+    <h2 class="font-semibold text-gray-700 mb-4">Native Coins</h2>
+    <div class="space-y-3">
 
-      } catch (err) {
-        console.error(err);
-        alert("Server error");
-      }
-    }
-  </script>
+      <button onclick="pay('sol_native')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/solana-sol-logo.png" class="w-8 h-8">
+          <span>SOL - Solana</span>
+        </div>
+      </button>
+
+      <button onclick="pay('bnb_native')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" class="w-8 h-8">
+          <span>BNB - BNB Mainnet</span>
+        </div>
+      </button>
+
+      <button onclick="pay('eth_native')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" class="w-8 h-8">
+          <span>ETH - Ethereum</span>
+        </div>
+      </button>
+
+      <button onclick="pay('base_native')" class="btn">
+        <div class="flex items-center space-x-3">
+          <img src="https://cryptologos.cc/logos/base-base-logo.png" class="w-8 h-8">
+          <span>BASE - Base Mainnet</span>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div id="paymentModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 p-4">
+  <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl relative p-4 flex flex-col items-center">
+    <button onclick="closeModal()" class="absolute -top-10 right-0 text-white font-bold">
+      ✕ CLOSE
+    </button>
+    <div id="iframeContainer" class="w-full flex justify-center rounded-xl overflow-hidden"></div>
+  </div>
+</div>
+
+<script>
+
+const invoices = {
+
+  usdt_sol: "5630734139",
+  usdt_bnb: "5131160002",
+  usdt_eth: "5047538383",
+ 
+
+  usdc_sol: "5320361699",
+  usdc_bnb: "5432885759",
+  usdc_eth: "5094465611",
+  usdc_base: "6031085118",
+
+  sol_native: "4548522175",
+  bnb_native: "5559656259",
+  eth_native: "5284590599",
+  base_native: "6033769517"
+
+};
+
+function pay(type) {
+
+  const modal = document.getElementById("paymentModal");
+  const container = document.getElementById("iframeContainer");
+  const invoiceId = invoices[type];
+
+  container.innerHTML = `
+    <iframe
+      src="https://nowpayments.io/embeds/payment-widget?iid=${invoiceId}"
+      width="410"
+      height="696"
+      frameborder="0"
+      scrolling="no"
+      style="overflow-y:hidden; max-width:100%;">
+    </iframe>
+  `;
+
+  modal.classList.remove("hidden");
+  modal.classList.add("flex");
+}
+
+function closeModal() {
+  document.getElementById("iframeContainer").innerHTML = "";
+  document.getElementById("paymentModal").classList.add("hidden");
+}
+
+</script>
+
+<style>
+.btn {
+  @apply w-full flex items-center justify-between border rounded-2xl p-4 hover:bg-gray-50 transition group;
+}
+</style>
 
 </body>
 </html>
