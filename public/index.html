@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crypto Ticket Checkout</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-900 flex items-center justify-center min-h-screen text-white">
+
+  <div class="bg-slate-800 p-10 rounded-2xl shadow-2xl w-full max-w-xl">
+
+    <h1 class="text-3xl font-bold text-center mb-8">Buy Ticket</h1>
+
+    <!-- Ticket Type -->
+    <div class="mb-6">
+      <label class="block mb-2 font-semibold">Select Ticket Type</label>
+      <select id="ticketType"
+        class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+        <option value="vip">VIP - $120</option>
+        <option value="viplux">VIP LUX - $180</option>
+        <option value="regshare">Regular Share - $60</option>
+        <option value="regsingle">Regular Single - $80</option>
+      </select>
+    </div>
+
+    <!-- Crypto Grid -->
+    <label class="block mb-3 font-semibold">Select Crypto</label>
+
+    <div class="grid grid-cols-3 gap-4">
+
+      <!-- BNB -->
+      <button data-crypto="bnb"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-yellow-400 hover:text-black">
+        BNB
+      </button>
+
+      <!-- SOL -->
+      <button data-crypto="sol"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-500 hover:to-green-400 hover:text-black">
+        SOL
+      </button>
+
+      <!-- ETH -->
+      <button data-crypto="eth"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-blue-500">
+        ETH
+      </button>
+
+      <!-- USDT SOL -->
+      <button data-crypto="usdtsol"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-emerald-500">
+        USDT (SOL)
+      </button>
+
+      <!-- USDT BSC -->
+      <button data-crypto="usdtbsc"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-emerald-500">
+        USDT (BSC)
+      </button>
+
+      <!-- USDT ETH -->
+      <button data-crypto="usdteth"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-emerald-500">
+        USDT (ETH)
+      </button>
+
+      <!-- USDC SPL -->
+      <button data-crypto="usdcspl"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-blue-600">
+        USDC (SOL)
+      </button>
+
+      <!-- USDC ETH -->
+      <button data-crypto="usdceth"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-blue-600">
+        USDC (ETH)
+      </button>
+
+      <!-- BASE -->
+      <button data-crypto="base"
+        class="crypto-btn bg-slate-700 p-3 rounded-xl font-semibold transition-all duration-300 hover:bg-blue-700">
+        BASE
+      </button>
+
+    </div>
+
+    <!-- Pay Button -->
+    <button onclick="createPayment()"
+      class="w-full mt-8 bg-green-600 hover:bg-green-700 transition-all duration-300 p-4 rounded-xl text-lg font-bold">
+      Pay Now
+    </button>
+
+  </div>
+
+<script>
+let selectedCrypto = null;
+
+// Select crypto
+document.querySelectorAll(".crypto-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    document.querySelectorAll(".crypto-btn").forEach(b => {
+      b.classList.remove("ring-4", "ring-offset-2", "ring-white");
+    });
+
+    btn.classList.add("ring-4", "ring-offset-2", "ring-white");
+
+    selectedCrypto = btn.dataset.crypto;
+  });
+});
+
+// Create payment
+async function createPayment() {
+  const ticketType = document.getElementById("ticketType").value;
+
+  if (!selectedCrypto) {
+    alert("Please select a cryptocurrency");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/create-payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ticketType, crypto: selectedCrypto })
+    });
+
+    const data = await response.json();
+
+    if (data.invoice_url) {
+      window.location.href = data.invoice_url;
+    } else {
+      alert("Payment failed");
+    }
+
+  } catch (err) {
+    alert("Server error");
+  }
+}
+</script>
+
+</body>
+</html>
